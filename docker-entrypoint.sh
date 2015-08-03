@@ -2,7 +2,6 @@
 
 set -o errexit
 set -o nounset
-set -o xtrace
 
 if [ "${1:-}" = "build" ]; then
   touch "/dist/.${2}"
@@ -14,7 +13,7 @@ if [ "${1:-}" = "build" ]; then
   cp *.tgz /dist/
   rm -f "/dist/.${2}"
 elif [ -z "${1:-}" ]; then
-  echo "Don't forget to export GOPATH=/mnt/DroboFS/Shares/DroboApps/<app_name>"
+  echo "Don't forget to export GOPATH=/mnt/DroboFS/Shares/DroboApps/<app_name> !"
   exec /bin/bash
 else
   exec "$@"
