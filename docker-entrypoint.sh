@@ -4,16 +4,21 @@ set -o errexit
 set -o nounset
 
 if [ "${1:-}" = "build" ]; then
-  touch "/dist/.${2}"
+  set -o xtrace
+  _name="$(basename "${2}" .git)"
+  touch "/dist/.${_name}"
   cd ~/build
-  git clone "https://github.com/droboports/${2}.git"
-  cd "${2}"
-  export GOPATH="/mnt/DroboFS/Shares/DroboApps/${2}"
-  ./build.sh
-  cp *.tgz /dist/
+  if [ "${_name}" = "${2}" ]; then
+    git clone "https://github.com/droboports/${2}.git" "${_name}"
+  else
+    git clone "${2}" "${_name}"
+  fi
+  cd "${_name}"
+  export GOPATH="/mnt/DroboFS/Shares/DroboApps/${_name}"
+  ./build.sh && cp *.tgz /dist/ || exec bin/bash
   rm -f "/dist/.${2}"
 elif [ -z "${1:-}" ]; then
-  echo "Don't forget to export GOPATH=/mnt/DroboFS/Shares/DroboApps/<app_name> !"
+  echo "WARNING: Do not forget to export GOPATH=/mnt/DroboFS/Shares/DroboApps/<appname>"
   exec /bin/bash
 else
   exec "$@"
