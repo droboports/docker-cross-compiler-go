@@ -2,9 +2,7 @@ FROM droboports/compiler
 
 MAINTAINER ricardo@droboports.com
 
-ENV GOLANG_VERSION=1.4.2
-ENV GOARCH=arm
-ENV GOARM=7
+ENV GOLANG_VERSION 1.4.2
 
 RUN set -x; \
     wget -O /tmp/xgolang.tgz https://github.com/droboports/golang/releases/download/v${GOLANG_VERSION}/xgolang.tgz && \
@@ -12,6 +10,10 @@ RUN set -x; \
     tar -zxf /tmp/xgolang.tgz -C /home/drobo/xtools/golang/5n && \
     rm -f /tmp/xgolang.tgz && \
     chown -R drobo:drobo /home/drobo
+
+ENV PATH /home/drobo/xtools/golang/5n/bin:${PATH}
+ENV GOARCH arm
+ENV GOARM 7
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
