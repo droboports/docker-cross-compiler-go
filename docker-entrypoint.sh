@@ -15,7 +15,7 @@ if [ "${1:-}" = "build" ]; then
   fi
   cd "${_name}"
   export GOPATH="/mnt/DroboFS/Shares/DroboApps/${_name}"
-  ./build.sh && cp *.tgz /dist/ || exec bin/bash
+  ./build.sh && cp *.tgz /dist/ || exec /bin/bash
   rm -f "/dist/.${2}"
 elif [ -z "${1:-}" ]; then
   echo "WARNING: Do not forget to export GOPATH=/mnt/DroboFS/Shares/DroboApps/<appname>"
