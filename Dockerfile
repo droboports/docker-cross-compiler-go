@@ -2,7 +2,7 @@ FROM droboports/compiler
 
 MAINTAINER ricardo@droboports.com
 
-ENV GOLANG_VERSION 1.4.2
+ENV GOLANG_VERSION 1.5.1
 ENV GOARCH arm
 ENV GOARM 7
 
